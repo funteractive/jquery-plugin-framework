@@ -1,5 +1,23 @@
 'use strict';
 
+var licenseRegexp = /^\!|^@preserve|^@cc_on|\bMIT\b|\bMPL\b|\bGPL\b|\(c\)|License|Copyright/mi;
+var isLicenseComment = (function() {
+  var _prevCommentLine = 0;
+
+  return function(node, comment) {
+    if (licenseRegexp.test(comment.value) ||
+      comment.line === 1 ||
+      comment.line === _prevCommentLine + 1) {
+      _prevCommentLine = comment.line;
+      return true;
+    }
+
+    _prevCommentLine = 0;
+    return false;
+  };
+})();
+
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -48,6 +66,9 @@ module.exports = function(grunt) {
     },
     uglify: {
       my_target: {
+        options:{
+          preserveComments: isLicenseComment
+        },
         files: {
           './src/pluginName.min.js': ['./src/pluginName.js']
         }
