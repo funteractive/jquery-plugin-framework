@@ -1,7 +1,7 @@
 {
-	"name": "jquery-plugin-framework",
-	"dependencies": {
-		"jquery": "*",
-		"normalize.css": "*"
-	}
+  "name": "jquery-plugin-framework",
+  "dependencies": {
+    "jquery": "*",
+    "normalize.css": "*"
+  }
 }
